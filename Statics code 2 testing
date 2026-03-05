@@ -7,6 +7,8 @@ tmin=sqrt(0.00868*L) %feet
 Smin = 29.25*L %inches
 Sstring = [7.94, 27.7, 70.3, 143, 253];
 
+for n = 8:41
+
 if Sstring(1) >= Smin
 Pilecost = (((13.1*120)/12^3)*14)*n + 40*n
 if Sstring(2) >= Smin
@@ -17,3 +19,5 @@ if Sstring(1) >= Smin
 Pilecost = (((90.3*120)/12^3)*14)*n + 40*n
 if Sstring(1) >= Smin
 Pilecost = (((132*120)/12^3)*14)*n + 40*n
+
+end
