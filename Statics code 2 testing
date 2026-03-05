@@ -1,0 +1,19 @@
+clear;
+clc;
+j=1;
+
+L=(80/(n-1)) %feet
+tmin=sqrt(0.00868*L) %feet
+Smin = 29.25*L %inches
+Sstring = [7.94, 27.7, 70.3, 143, 253];
+
+if Sstring(1) >= Smin
+Pilecost = (((13.1*120)/12^3)*14)*n + 40*n
+if Sstring(2) >= Smin
+Pilecost = (((30.3*120)/12^3)*14)*n + 40*n
+if Sstring(1) >= Smin
+Pilecost = (((56.3*120)/12^3)*14)*n + 40*n
+if Sstring(1) >= Smin
+Pilecost = (((90.3*120)/12^3)*14)*n + 40*n
+if Sstring(1) >= Smin
+Pilecost = (((132*120)/12^3)*14)*n + 40*n
