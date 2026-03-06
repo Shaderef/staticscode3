@@ -5,7 +5,7 @@ o=0;
 for n = 11:41
 
 L=(80/(n-1)); %feet
-tmin=sqrt(0.00868*L)*12; %feet
+tmin=sqrt(0.00868*L)*12; %inches
 Smin = 29.25*L; %inches
 Sstring = [7.94, 27.7, 70.3, 143, 253];
 
