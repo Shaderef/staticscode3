@@ -1,0 +1,97 @@
+clear;
+clc;
+j=1;
+o=0;
+for n = 11:41
+L=(80/(n-1)); %feet
+tmin=sqrt(0.167*L^2); %inches
+Smin = 29.25*L; %inches
+Sstring = [7.94, 27.7, 70.3, 143, 253];
+if Sstring(1) >= Smin
+Pilecost = (((13.1*120)/12^3)*14)*n + 40*n;
+elseif Sstring(2) >= Smin
+Pilecost = (((30.3*120)/12^3)*14)*n + 40*n;
+elseif Sstring(3) >= Smin
+Pilecost = (((56.3*120)/12^3)*14)*n + 40*n;
+elseif Sstring(4) >= Smin
+Pilecost = (((90.3*120)/12^3)*14)*n + 40*n;
+elseif Sstring(5) >= Smin
+Pilecost = (((132*240)/12^3)*14)*n + 40*n;
+end
+
+%% origin plank cuts
+% 8 plank
+uses8 = floor(L/(8));
+waste8 = L/(8) - uses8;
+
+% 10 plank
+uses10 = floor(L/(10));
+waste10 = L/(10) - uses10;
+% 12 plank
+uses12 = floor(L/(12));
+waste12 = L/(12) - uses12;
+
+if waste8<=waste10 && waste8<=waste12
+   planklength = 80/8;
+
+elseif waste10<=waste12
+   planklength = 80/10;
+
+else 
+   planklength = 80/12;
+
+end
+
+tstring = [13/8,29/8, 5.625,15/2,19/2,23/2];
+if tstring(1) >= tmin
+planksneeded = ceil(60/(15/2));
+plankheight = planksneeded*15/2;
+Plankcost = (((tstring(1)*plankheight*planklength)/12^2)*14*(n-1));
+elseif tstring(2) >= tmin
+planksneeded = ceil(60/(15/2));
+plankheight = planksneeded*15/2;
+Plankcost = (((tstring(2)*plankheight*planklength)/12^2)*14*(n-1));
+elseif tstring(3) >= tmin
+planksneeded = ceil(60/(15/2));
+plankheight = planksneeded*15/2;
+Plankcost = (((tstring(3)*plankheight*planklength)/12^2)*14*(n-1));
+elseif tstring(4) >= tmin
+planksneeded = ceil(60/(15/2));
+plankheight = planksneeded*15/2;
+Plankcost = (((tstring(4)*plankheight*planklength)/12^2)*14*(n-1));
+elseif tstring(5) >= tmin
+planksneeded = ceil(60/(31/2));
+plankheight = planksneeded*31/2;
+Plankcost = (((tstring(5)*plankheight*planklength)/12^2)*14*(n-1));
+elseif tstring(6) >= tmin
+planksneeded = ceil(60/(31/2));
+plankheight = planksneeded*31/2;
+Plankcost = (((tstring(6)*plankheight*planklength)/12^2)*14*(n-1));
+end
+y(j) = Pilecost + Plankcost;
+mincost = Pilecost+Plankcost;
+fprintf('n = %d, Cost = %.4f\n', n, mincost);
+x(j) = n;
+j=j+1;
+end
+
+% --- Find Minimum ---
+[minCost, minIndex] = min(y);
+minN = x(minIndex);
+
+fprintf('\nMinimum cost: $%.4f at n = %d\n', minCost, minN);
+
+% --- Plot ---
+figure;
+plot(x, y, '-o', 'LineWidth', 1.5, 'MarkerFaceColor', 'b', 'DisplayName', 'Total Cost');
+hold on;
+plot(minN, minCost, 'ro', 'MarkerSize', 12, 'MarkerFaceColor', 'r', 'DisplayName', ...
+    sprintf('Min: (n=%d, $%.2f)', minN, minCost));
+text(minN, minCost, sprintf('  Min: (n=%d, $%.2f)', minN, minCost), ...
+    'FontSize', 10, 'Color', 'red', 'VerticalAlignment', 'bottom');
+xlabel('Number of Piles (n)');
+ylabel('Total Cost ($)');
+title('Retaining Wall Cost vs. Number of Piles');
+legend('Location', 'best');
+grid on;
+hold off;
