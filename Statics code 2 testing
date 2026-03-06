@@ -1,11 +1,11 @@
 clear;
 clc;
 j=1;
-
+o=0;
 for n = 11:41
 
 L=(80/(n-1)); %feet
-tmin=sqrt(0.00868*L); %feet
+tmin=sqrt(0.00868*L)*12; %feet
 Smin = 29.25*L; %inches
 Sstring = [7.94, 27.7, 70.3, 143, 253];
 
@@ -50,6 +50,7 @@ if tstring(1) >= tmin
 planksheight = 60/(23/2);
 planksneeded = planksheight*plankslength;
 Plankcost = (((18.7*planksneeded)/12^3)*14);
+o=o+1
 elseif tstring(2) >= tmin
 planksheight = 60/(23/2);
 planksneeded = planksheight*plankslength;
