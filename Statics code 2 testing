@@ -5,7 +5,7 @@ o=0;
 for n = 11:41
 
 L=(80/(n-1)); %feet
-tmin=sqrt(0.00868*L)*12; %inches
+tmin=sqrt(0.00868*L)*12; %feet
 Smin = 29.25*L; %inches
 Sstring = [7.94, 27.7, 70.3, 143, 253];
 
@@ -38,42 +38,32 @@ waste12 = L/(12) - uses12;
 
 if waste8<=waste10 && waste8<=waste12
    plankslength = 80/8;
-
+Lplank = 8;
 elseif waste10<=waste12
    plankslength = 80/10;
-
+Lplank = 10;
 else 
    plankslength = 80/12;
-
+Lplank = 12;
 end
 
 tstring = [13/8,29/8,11/2,15/2,15/2,19/2,23/2];
 if tstring(1) >= tmin
-planksheight = 60/(23/2);
-planksneeded = planksheight*plankslength;
-Plankcost = (((18.7*planksneeded)/12^3)*14);
-elseif tstring(2) >= tmin
-planksheight = 60/(23/2);
-planksneeded = planksheight*plankslength;
-Plankcost = (((41.7*planksneeded)/12^3)*14);
-elseif tstring(3) >= tmin
-planksheight = 60/(27/2);
-planksneeded = planksheight*plankslength;
-Plankcost = (((74.3*planksneeded)/12^3)*14);
-elseif tstring(4) >= tmin
-planksheight = 60/(31/2);
-planksneeded = planksheight*plankslength;
-Plankcost = (((116*planksneeded)/12^3)*14);
-elseif tstring(5) >= tmin
-planksheight = 60/(35/2);
-planksneeded = planksheight*plankslength;
-Plankcost = (((166*planksneeded)/12^3)*14);
-else %tstring(6) >= tmin
-planksheight = 60/(39/2);
-planksneeded = planksheight*plankslength;
-Plankcost = (((224*planksneeded)/12^3)*14);
-end
 
+Plankvol = Lplank*(tstring(1)/12)*5*(n-1);
+
+elseif tstring(2) >= tmin
+Plankvol = Lplank*(tstring(2)/12)*5*(n-1);
+elseif tstring(3) >= tmin
+Plankvol = Lplank*(tstring(3)/12)*5*(n-1);
+elseif tstring(4) >= tmin
+Plankvol = Lplank*(tstring(4)/12)*5*(n-1);
+elseif tstring(5) >= tmin
+Plankvol = Lplank*(tstring(5)/12)*5*(n-1);
+else %tstring(6) >= tmin
+Plankvol = Lplank*(tstring(6)/12)*5*(n-1);
+end
+Plankcost = Plankvol*14;
 
 y(j) = Pilecost + Plankcost;
 x(j) = n;
