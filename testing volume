@@ -3,10 +3,10 @@ clc;
 j=1;
 
 o=0;
-for n = 11:41
+for n = 11
 
 L=(80/(n-1)); %feet
-tmin=sqrt(0.00868*L)*12;%feet
+tmin=sqrt(0.00868*L)*12;%inches
 Smin = 29.25*L; %inches
 Sstring = [7.94, 27.7, 70.3, 143, 253];
 
@@ -26,14 +26,13 @@ end
 %% origin plank cuts
 % 8 plank
 uses8 = floor(8/(L));
-waste8 = 8/(L) - uses8;
-
+waste8 = (8 - uses8*L)/uses8*(n-1);
 % 10 plank
 uses10 = floor(10/(L));
-waste10 = 10/(L) - uses10;
+waste10 = (10 - uses10*L)/uses10*(n-1);
 % 12 plank
-uses12 = floor(L/(12));
-waste12 = 12/(L) - uses12;
+uses12 = floor(12/(L));
+waste12 = (12 - uses12*L)/uses12*(n-1);        %%%%%%%%%%%%%%
 
 if waste8<=waste10 && waste8<=waste12
    waste = waste8;
@@ -42,38 +41,38 @@ elseif waste10<=waste12
    waste = waste10;
 uses = uses10;
 else 
-   waste = waste12;
+   waste = waste12; %finalizes values for waste proportion and uses
 uses = uses12;
 end
 
 tstring = [13/8,29/8,11/2,15/2,15/2,19/2,23/2];
 if tstring(1) >= tmin
 h=5;
-volwaste = ((waste*L*tstring(1)/12*h)/uses)*(n-1);
+volwaste = ((waste*L*tstring(1)/12*h));
 Plankvol = L*(tstring(1)/12*h*(n-1));
 
 elseif tstring(2) >= tmin
 h=5;
-volwaste = ((waste*L*tstring(2)/12*h)/uses)*(n-1);
+volwaste = ((waste*L*tstring(2)/12*h));
 Plankvol = L*(tstring(2)/12*h*(n-1));
 elseif tstring(3) >= tmin
 h=5;
-volwaste = ((waste*L*tstring(3)/12*h)/uses)*(n-1);
+volwaste = ((waste*L*tstring(3)/12*h));
 Plankvol = L*(tstring(3)/12*h*(n-1));
 elseif tstring(4) >= tmin
 h=5;
-volwaste = ((waste*L*tstring(4)/12*h)/uses)*(n-1);
+volwaste = ((waste*L*tstring(4)/12*h)/uses);
 Plankvol = L*(tstring(4)/12*h*(n-1));
 elseif tstring(5) >= tmin
 h=62/12;
-volwaste = ((waste*L*tstring(5)/12*h)/uses)*(n-1);
+volwaste = ((waste*L*tstring(5)/12*h));
 Plankvol = L*(tstring(5)/12*h*(n-1));
 else %tstring(6) >= tmin
 h=62/12;
-volwaste = ((waste*L*tstring(6)/12*h)/uses)*(n-1);
-Plankvol = L*(tstring(6)/12*h*(n-1));
+volwaste = ((waste*L*tstring(6)/12*h))
+Plankvol = L*(tstring(6)/12*h*(n-1))
 end
-Plankcost = (Plankvol+volwaste)*14;
+Plankcost = (Plankvol+volwaste)*14
 
 y(j) = Pilecost + Plankcost;
 x(j) = n;
