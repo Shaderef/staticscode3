@@ -1,6 +1,7 @@
 clear;
 clc;
 j=1;
+
 o=0;
 for n = 11:41
 
@@ -12,33 +13,31 @@ Sstring = [7.94, 27.7, 70.3, 143, 253];
 
 if Sstring(1) >= Smin
 Pilecost = (((13.1*120)/12^3)*14)*n + 40*n;
-
 elseif Sstring(2) >= Smin
 Pilecost = (((30.3*120)/12^3)*14)*n + 40*n;
 elseif Sstring(3) >= Smin
 Pilecost = (((56.3*120)/12^3)*14)*n + 40*n;
 elseif Sstring(4) >= Smin
 Pilecost = (((90.3*120)/12^3)*14)*n + 40*n;
-
 else %Sstring(5) >= Smin
 Pilecost = (((132*120)/12^3)*14)*n + 40*n;
 end
 
 %% origin plank cuts
 % 8 plank
-uses8 = floor(L/(8));
-waste8 = L/(8) - uses8;
+uses8 = floor(8/(L));
+waste8 = 8/(L) - uses8;
 
 % 10 plank
-uses10 = floor(L/(10));
-waste10 = L/(10) - uses10;
+uses10 = floor(10/(L));
+waste10 = 10/(L) - uses10;
 % 12 plank
 uses12 = floor(L/(12));
-waste12 = L/(12) - uses12;
+waste12 = 12/(L) - uses12;
 
 if waste8<=waste10 && waste8<=waste12
-   plankslength = 80/8;
-Lplank = 8;
+   waste = waste8;
+uses = uses8
 elseif waste10<=waste12
    plankslength = 80/10;
 Lplank = 10;
@@ -47,23 +46,34 @@ else
 Lplank = 12;
 end
 
-tstring = [13/8,29/8,11/2,15/2,15/2,19/2,23/2];
+tstring = [13/8,29/8,11/2,15/2,15/2,19/2,23/2]/12;
 if tstring(1) >= tmin
-
-Plankvol = Lplank*(tstring(1)/12)*5*(n-1);
+h=5;
+volwaste = ((waste*L*tstring(1)*h)/uses)*(n-1);
+Plankvol = L*(tstring(1)*h*(n-1);
 
 elseif tstring(2) >= tmin
-Plankvol = Lplank*(tstring(2)/12)*5*(n-1);
+h=5;
+volwaste = ((waste*L*tstring(2)*h)/uses)*(n-1);
+Plankvol = L*(tstring(2)*h*(n-1);
 elseif tstring(3) >= tmin
-Plankvol = Lplank*(tstring(3)/12)*5*(n-1);
+h=5;
+volwaste = ((waste*L*tstring(3)*h)/uses)*(n-1);
+Plankvol = L*(tstring(3)*h*(n-1);
 elseif tstring(4) >= tmin
-Plankvol = Lplank*(tstring(4)/12)*5*(n-1);
+h=5;
+volwaste = ((waste*L*tstring(4)*h)/uses)*(n-1);
+Plankvol = L*(tstring(4)*h*(n-1);
 elseif tstring(5) >= tmin
-Plankvol = Lplank*(tstring(5)/12)*5*(n-1);
+h=62/12
+volwaste = ((waste*L*tstring(6)*h)/uses)*(n-1);
+Plankvol = L*(tstring(5)*h*(n-1);
 else %tstring(6) >= tmin
-Plankvol = Lplank*(tstring(6)/12)*5*(n-1);
+h=62/12
+volwaste = ((waste*L*tstring(6)*h)/uses)*(n-1);
+Plankvol = Lplank*(tstring(6)*h*(n-1);
 end
-Plankcost = Plankvol*14;
+Plankcost = (Plankvol+volwaste)*14
 
 y(j) = Pilecost + Plankcost;
 x(j) = n;
