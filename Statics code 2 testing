@@ -18,7 +18,7 @@ elseif Sstring(3) >= Smin
 Pilecost = (((56.3*120)/12^3)*14)*n + 40*n;
 elseif Sstring(4) >= Smin
 Pilecost = (((90.3*120)/12^3)*14)*n + 40*n;
-elseif Sstring(5) >= Smin
+else %Sstring(5) >= Smin
 Pilecost = (((132*120)/12^3)*14)*n + 40*n;
 end
 
@@ -66,7 +66,7 @@ elseif tstring(5) >= tmin
 planksheight = 60/(35/2);
 planksneeded = planksheight*plankslength;
 Plankcost = (((166*planksneeded)/12^3)*14);
-elseif tstring(6) >= tmin
+else %tstring(6) >= tmin
 planksheight = 60/(39/2);
 planksneeded = planksheight*plankslength;
 Plankcost = (((224*planksneeded)/12^3)*14);
