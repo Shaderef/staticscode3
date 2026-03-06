@@ -3,10 +3,10 @@ clc;
 j=1;
 
 o=0;
-for n = 11
+for n = 11:41
 
 L=(80/(n-1)); %feet
-tmin=sqrt(0.00868*L)*12;%inches
+tmin=sqrt(0.03255*L)*12;%inches
 Smin = 29.25*L; %inches
 Sstring = [7.94, 27.7, 70.3, 143, 253];
 
@@ -69,10 +69,10 @@ volwaste = ((waste*L*tstring(5)/12*h));
 Plankvol = L*(tstring(5)/12*h*(n-1));
 else %tstring(6) >= tmin
 h=62/12;
-volwaste = ((waste*L*tstring(6)/12*h))
-Plankvol = L*(tstring(6)/12*h*(n-1))
+volwaste = ((waste*L*tstring(6)/12*h));
+Plankvol = L*(tstring(6)/12*h*(n-1));
 end
-Plankcost = (Plankvol+volwaste)*14
+Plankcost = (Plankvol+volwaste)*14;
 
 y(j) = Pilecost + Plankcost;
 x(j) = n;
