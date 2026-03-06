@@ -2,22 +2,114 @@ clear;
 clc;
 j=1;
 
-L=(80/(n-1)) %feet
-tmin=sqrt(0.00868*L) %feet
-Smin = 29.25*L %inches
+for n = 11:41
+
+L=(80/(n-1)); %feet
+tmin=sqrt(0.00868*L); %feet
+Smin = 29.25*L; %inches
 Sstring = [7.94, 27.7, 70.3, 143, 253];
 
-for n = 8:41
 
 if Sstring(1) >= Smin
-Pilecost = (((13.1*120)/12^3)*14)*n + 40*n
-if Sstring(2) >= Smin
-Pilecost = (((30.3*120)/12^3)*14)*n + 40*n
-if Sstring(1) >= Smin
-Pilecost = (((56.3*120)/12^3)*14)*n + 40*n
-if Sstring(1) >= Smin
-Pilecost = (((90.3*120)/12^3)*14)*n + 40*n
-if Sstring(1) >= Smin
-Pilecost = (((132*120)/12^3)*14)*n + 40*n
+Pilecost = (((13.1*120)/12^3)*14)*n + 40*n;
+elseif Sstring(2) >= Smin
+Pilecost = (((30.3*120)/12^3)*14)*n + 40*n;
+elseif Sstring(3) >= Smin
+Pilecost = (((56.3*120)/12^3)*14)*n + 40*n;
+elseif Sstring(4) >= Smin
+Pilecost = (((90.3*120)/12^3)*14)*n + 40*n;
+elseif Sstring(5) >= Smin
+Pilecost = (((132*120)/12^3)*14)*n + 40*n;
+end
 
+%% origin plank cuts
+% 8 plank
+uses8 = floor(L/(8));
+waste8 = L/(8) - uses8;
+
+% 10 plank
+uses10 = floor(L/(10));
+waste10 = L/(10) - uses10;
+% 12 plank
+uses12 = floor(L/(12));
+waste12 = L/(12) - uses12;
+
+if waste8<=waste10 && waste8<=waste12
+   plankslength = 80/8;
+
+elseif waste10<=waste12
+   plankslength = 80/10;
+
+else 
+   plankslength = 80/12;
+
+end
+
+tstring = [13/8,29/8,11/2,15/2,15/2,19/2,23/2];
+if tstring(1) >= tmin
+planksheight = 60/(23/2);
+planksneeded = planksheight*plankslength;
+Plankcost = (((18.7*planksneeded)/12^3)*14);
+elseif tstring(2) >= tmin
+planksheight = 60/(23/2);
+planksneeded = planksheight*plankslength;
+Plankcost = (((41.7*planksneeded)/12^3)*14);
+elseif tstring(3) >= tmin
+planksheight = 60/(27/2);
+planksneeded = planksheight*plankslength;
+Plankcost = (((74.3*planksneeded)/12^3)*14);
+elseif tstring(4) >= tmin
+planksheight = 60/(31/2);
+planksneeded = planksheight*plankslength;
+Plankcost = (((116*planksneeded)/12^3)*14);
+elseif tstring(5) >= tmin
+planksheight = 60/(35/2);
+planksneeded = planksheight*plankslength;
+Plankcost = (((166*planksneeded)/12^3)*14);
+elseif tstring(6) >= tmin
+planksheight = 60/(39/2);
+planksneeded = planksheight*plankslength;
+Plankcost = (((224*planksneeded)/12^3)*14);
+end
+
+
+y(j) = Pilecost + Plankcost;
+x(j) = n;
+j=j+1;
+end
+
+% --- Find Minimum Cost ---
+[minCost, minIndex] = findMinCost(y);
+minX = x(minIndex);
+% --- Display Results ---
+fprintf('\nResults:\n');
+fprintf(' Minimum cost : %.4f\n', minCost);
+fprintf(' Ordered pair : (%.4f, %.4f)\n', minX, minCost);
+% --- Plot ---
+figure;
+plot(x, y, '-o', 'LineWidth', 1.5, 'MarkerFaceColor', 'b');
+hold on;
+plot(minX, minCost, 'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'r', 'DisplayName', ...
+sprintf('Min: (%.2f, %.2f)', minX, minCost));
+text(minX, minCost, sprintf(' Min: (%.2f, %.2f)', minX, minCost), ...
+'FontSize', 10, 'Color', 'red', 'VerticalAlignment', 'bottom');
+xlabel('X');
+ylabel('Cost (Y)');
+title('Cost vs X');
+legend('Cost data', 'Minimum cost', 'Location', 'best');
+grid on;
+hold off;
+% =========================================================
+% Local function - findMinCost
+% =========================================================
+function [minCost, minIndex] = findMinCost(costList)
+minCost = costList(1);
+minIndex = 1;
+for i = 2 : length(costList)
+if costList(i) < minCost
+minCost = costList(i);
+minIndex = i;
+
+end
+end
 end
